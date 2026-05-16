@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "N88ZvumA2moQyxeW8I7Kj"
@@ -12,3 +11,21 @@ id = "7xZ5tAl9xyVSfjLvpnawk"
 uri = "file://artifacts/tiktok-video/public/images/services.png"
 type = "image"
 title = "3d service icons"
+
+[[outputs]]
+id = "DMhr2MbE7ihmS1jv7mO-k"
+uri = "file://attached_assets/stock_images/latam_paperwork.jpg"
+type = "image"
+title = "Latin American immigrant family doing paperwork and bureaucratic documents, stressed, office setting"
+
+[[outputs]]
+id = "hfiIQfNq6sd5TKh4KlPjB"
+uri = "file://attached_assets/stock_images/diverse_immigrants.jpg"
+type = "image"
+title = "Group of diverse Latin American and Asian immigrants smiling together, community, Barcelona Spain"
+
+[[outputs]]
+id = "UUKcn2FKuhAX4NGz1yTGS"
+uri = "file://attached_assets/stock_images/multicultural_service.jpg"
+type = "image"
+title = "Asian and Latin American people at a service counter receiving help, friendly staff, community center"

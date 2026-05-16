@@ -15,13 +15,20 @@ export function Scene1() {
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center"
       initial={{ opacity: 0, scale: 1.1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, y: -50, filter: 'blur(10px)' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
+      {/* Background: diverse immigrants community */}
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/diverse_immigrants.jpg`}
+        className="absolute inset-0 w-full h-full object-cover opacity-15"
+        animate={{ scale: [1, 1.04, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
       <motion.div
         initial={{ opacity: 0, y: 50, scale: 0.8 }}
         animate={phase >= 1 ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.8 }}

@@ -28,11 +28,13 @@ export function Scene3() {
       exit={{ opacity: 0, y: '100vh' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <motion.img 
-        src={`${import.meta.env.BASE_URL}images/services.png`}
-        className="absolute bottom-0 right-0 w-[60%] opacity-40 mix-blend-screen"
-        animate={{ y: [20, -20, 20] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      {/* Real people being helped — multicultural */}
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/multicultural_service.jpg`}
+        className="absolute bottom-0 right-0 w-[55%] h-[70%] object-cover opacity-35 rounded-tl-[4rem]"
+        style={{ maskImage: 'linear-gradient(to left, black 40%, transparent 100%)' }}
+        animate={{ scale: [1, 1.03, 1] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="relative z-10 w-full max-w-5xl">

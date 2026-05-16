@@ -22,12 +22,12 @@ export function Scene2() {
       exit={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Background Floating Image */}
-      <motion.img 
-        src={`${import.meta.env.BASE_URL}images/papers.png`}
-        className="absolute w-[120%] h-auto opacity-30 object-cover"
-        animate={{ y: ['-5%', '5%'], rotate: [-2, 2] }}
-        transition={{ duration: 6, repeat: Infinity, yoyo: Infinity, ease: "linear" }}
+      {/* Background: real people dealing with paperwork */}
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/latam_paperwork.jpg`}
+        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        animate={{ scale: [1.02, 1.06, 1.02] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="relative z-10 w-full max-w-4xl text-left">
