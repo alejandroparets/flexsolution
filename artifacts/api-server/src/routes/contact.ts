@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import { db, contactMessagesTable } from "@workspace/db";
 import { SendContactBody } from "@workspace/api-zod";
+import { sendContactNotification } from "../lib/mailer";
 
 const router: IRouter = Router();
 
@@ -17,6 +18,12 @@ router.post("/contact", async (req, res) => {
     .insert(contactMessagesTable)
     .values({ name, email, message })
     .returning();
+
+  void sendContactNotification({
+    name: msg.name,
+    email: msg.email,
+    message: msg.message,
+  });
 
   res.status(201).json({
     id: msg.id,

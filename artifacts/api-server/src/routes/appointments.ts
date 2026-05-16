@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import { db, appointmentsTable } from "@workspace/db";
 import { CreateAppointmentBody } from "@workspace/api-zod";
+import { sendAppointmentNotification } from "../lib/mailer";
 
 const router: IRouter = Router();
 
@@ -24,6 +25,15 @@ router.post("/appointments", async (req, res) => {
       notes: notes ?? null,
     })
     .returning();
+
+  void sendAppointmentNotification({
+    name: appointment.name,
+    email: appointment.email,
+    phone: appointment.phone,
+    service: appointment.service,
+    preferredDate: appointment.preferredDate,
+    notes: appointment.notes,
+  });
 
   res.status(201).json({
     id: appointment.id,
