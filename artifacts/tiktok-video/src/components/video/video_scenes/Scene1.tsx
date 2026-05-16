@@ -38,12 +38,15 @@ export function Scene1() {
         
         {/* Logo */}
         <motion.div
-          className="mb-8"
+          className="mb-8 flex items-center gap-4"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <img src={logoPng} alt="FlexSolution Logo" className="h-24 object-contain" />
+          <span className="text-white font-display font-bold text-[3.5vw] leading-none tracking-tight drop-shadow-lg">
+            Flex<span className="text-[var(--color-primary)]">Solution</span>
+          </span>
         </motion.div>
 
         {/* Headline */}

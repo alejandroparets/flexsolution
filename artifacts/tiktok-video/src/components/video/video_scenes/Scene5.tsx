@@ -34,9 +34,12 @@ export function Scene5() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-          className="mb-8 flex justify-center"
+          className="mb-8 flex flex-col items-center gap-4"
         >
           <img src={logoPng} alt="FlexSolution Logo" className="h-48 object-contain" />
+          <span className="text-white font-display font-bold text-[4vw] leading-none tracking-tight drop-shadow-lg">
+            Flex<span className="text-[var(--color-primary)]">Solution</span>
+          </span>
         </motion.div>
 
         <motion.h2
@@ -55,7 +58,7 @@ export function Scene5() {
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         >
           <span className="text-[var(--color-primary)] font-mono text-[1.5vw] tracking-wider">
-            community-connect-hub-alejandroparets.replit.app
+            www.flesolution.es
           </span>
         </motion.div>
 
