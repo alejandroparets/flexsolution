@@ -1,69 +1,91 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 export function Scene4() {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 300),
-      setTimeout(() => setPhase(2), 1000),
-      setTimeout(() => setPhase(3), 1600),
+      setTimeout(() => setPhase(1), 400),   // Contact Box pops
+      setTimeout(() => setPhase(2), 800),   // WhatsApp
+      setTimeout(() => setPhase(3), 1200),  // Insta
+      setTimeout(() => setPhase(4), 1600),  // Bizum
+      setTimeout(() => setPhase(5), 3800),  // Exit
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-center p-12"
-      initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-      animate={{ clipPath: 'circle(150% at 50% 50%)' }}
-      exit={{ opacity: 0, filter: 'blur(20px)' }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute inset-0 flex items-center justify-center bg-black overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ filter: 'blur(10px)', scale: 1.1, opacity: 0 }}
+      transition={{ duration: 0.8 }}
     >
-      <div className="w-full max-w-4xl bg-white/5 p-12 rounded-[3rem] border border-[var(--color-accent)]/30 backdrop-blur-md relative overflow-hidden">
-        
-        <motion.div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)] opacity-20 blur-[80px]" />
-        
-        <motion.h2
-          className="text-[5vw] font-black font-display mb-12"
-          initial={{ opacity: 0, x: -50 }}
-          animate={phase >= 1 ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+      {/* Background Image Layer */}
+      <motion.div 
+        className="absolute inset-0 w-full h-full"
+        initial={{ scale: 1.1, y: '5%' }}
+        animate={{ scale: 1, y: '0%' }}
+        transition={{ duration: 6, ease: 'easeOut' }}
+      >
+        <img 
+          src={`${import.meta.env.BASE_URL}images/contact_bg.jpg`} 
+          alt="Warm office interior" 
+          className="w-full h-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </motion.div>
+
+      <motion.div 
+        className="relative z-10 bg-[var(--color-bg-dark)]/80 backdrop-blur-xl border border-[var(--color-accent)]/30 rounded-3xl p-[4vw] shadow-2xl flex flex-col items-center text-center max-w-4xl w-[80vw]"
+        initial={{ scale: 0.8, opacity: 0, rotateY: 90 }}
+        animate={phase >= 1 ? { scale: 1, opacity: 1, rotateY: 0 } : { scale: 0.8, opacity: 0, rotateY: 90 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <h2 
+          className="text-[4vw] font-bold text-white mb-10"
+          style={{ fontFamily: 'var(--font-display)' }}
         >
-          Comunícate<br/><span className="text-[var(--color-accent)]">hoy mismo</span>
-        </motion.h2>
+          Estamos para ayudarte
+        </h2>
 
-        <div className="space-y-8">
-          <motion.div
-            className="flex flex-col"
-            initial={{ opacity: 0, y: 20 }}
-            animate={phase >= 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          >
-            <span className="text-[var(--color-text-secondary)] text-[2vw]">WhatsApp / Bizum</span>
-            <span className="text-[4vw] font-bold font-display">+34 628 852 296</span>
-          </motion.div>
-
-          <motion.div
-            className="flex flex-col"
-            initial={{ opacity: 0, y: 20 }}
-            animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.1 }}
-          >
-            <span className="text-[var(--color-text-secondary)] text-[2vw]">Instagram</span>
-            <span className="text-[4vw] font-bold font-display">@dac_2025parets</span>
-          </motion.div>
-          
-          <motion.div
-            className="flex flex-col"
-            initial={{ opacity: 0, y: 20 }}
-            animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.2 }}
-          >
-            <span className="text-[var(--color-text-secondary)] text-[2vw]">Email</span>
-            <span className="text-[3vw] font-bold">alejandroparets@gmail.com</span>
-          </motion.div>
+        <div className="flex flex-col space-y-6 w-full px-10">
+          <ContactRow 
+            label="WhatsApp" 
+            value="+34 628 852 296" 
+            visible={phase >= 2} 
+          />
+          <ContactRow 
+            label="Instagram" 
+            value="@dac_2025parets" 
+            visible={phase >= 3} 
+          />
+          <ContactRow 
+            label="Bizum" 
+            value="628 852 296" 
+            visible={phase >= 4} 
+            highlight
+          />
         </div>
-      </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ContactRow({ label, value, visible, highlight = false }: { label: string, value: string, visible: boolean, highlight?: boolean }) {
+  return (
+    <motion.div 
+      className="flex justify-between items-center w-full border-b border-white/10 pb-4"
+      initial={{ opacity: 0, x: -30 }}
+      animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+    >
+      <span className="text-[2vw] text-white/60 tracking-wider uppercase font-semibold">{label}</span>
+      <span className={`text-[2.5vw] font-bold ${highlight ? 'text-[var(--color-accent)]' : 'text-white'}`}>
+        {value}
+      </span>
     </motion.div>
   );
 }

@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 import logoPng from "@assets/logo_no_bg.png";
 
 export function Scene1() {
@@ -7,45 +7,83 @@ export function Scene1() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 200),
-      setTimeout(() => setPhase(2), 1000),
-      setTimeout(() => setPhase(3), 2800), // Exit drift
+      setTimeout(() => setPhase(1), 100),   // Image slowly scaling
+      setTimeout(() => setPhase(2), 600),   // Overlay gradient fades in slightly
+      setTimeout(() => setPhase(3), 1000),  // Logo + Question text
+      setTimeout(() => setPhase(4), 3400),  // Exit drift
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   return (
-    <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center"
-      initial={{ opacity: 0, scale: 1.1 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, y: -50, filter: 'blur(10px)' }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+    <motion.div 
+      className="absolute inset-0 flex items-center justify-center bg-black overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ filter: 'blur(10px)', opacity: 0, scale: 1.05 }}
+      transition={{ duration: 0.8 }}
     >
-      {/* Background: diverse immigrants community */}
-      <motion.img
-        src={`${import.meta.env.BASE_URL}images/diverse_immigrants.jpg`}
-        className="absolute inset-0 w-full h-full object-cover opacity-15"
-        animate={{ scale: [1, 1.04, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.8 }}
-        animate={phase >= 1 ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.8 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="mb-8"
+      {/* Background Image Layer */}
+      <motion.div 
+        className="absolute inset-0 w-full h-full"
+        initial={{ scale: 1.2 }}
+        animate={{ scale: phase >= 1 ? 1 : 1.2 }}
+        transition={{ duration: 6, ease: 'easeOut' }}
       >
-        <img src={logoPng} alt="FlexSolution" className="w-[30vw] max-w-[300px] h-auto object-contain drop-shadow-2xl" />
+        <img 
+          src={`${import.meta.env.BASE_URL}images/hook.jpg`} 
+          alt="Relieved immigrant in office" 
+          className="w-full h-full object-cover opacity-60"
+        />
       </motion.div>
 
-      <motion.h1 
-        className="text-[6vw] leading-[1.1] font-black font-display tracking-tight uppercase"
-        initial={{ opacity: 0, rotateX: 90, y: 40 }}
-        animate={phase >= 2 ? { opacity: 1, rotateX: 0, y: 0 } : { opacity: 0, rotateX: 90, y: 40 }}
-        transition={{ type: "spring", stiffness: 200, damping: 15 }}
-      >
-        ¿Eres <span className="text-[var(--color-accent)]">inmigrante</span><br/>en España?
-      </motion.h1>
+      {/* Dark overlay for contrast */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase >= 2 ? 0.8 : 0 }}
+        transition={{ duration: 1 }}
+      />
+
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-8 w-full max-w-4xl mt-[10vh]">
+        <motion.img 
+          src={logoPng} 
+          alt="FlexSolution" 
+          className="w-48 mb-8 object-contain"
+          initial={{ opacity: 0, y: 30 }}
+          animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        />
+
+        <motion.h1 
+          className="text-[4.5vw] leading-[1.1] font-black tracking-tight text-white drop-shadow-2xl"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          {'¿Necesitas ayuda'.split(' ').map((word, i) => (
+            <motion.span 
+              key={`w1-${i}`} 
+              className="inline-block mr-4"
+              initial={{ opacity: 0, y: 40, rotateX: 45 }}
+              animate={phase >= 3 ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 40, rotateX: 45 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20, delay: phase >= 3 ? 0.2 + (i * 0.1) : 0 }}
+            >
+              {word}
+            </motion.span>
+          ))}
+          <br />
+          {'con tus trámites?'.split(' ').map((word, i) => (
+            <motion.span 
+              key={`w2-${i}`} 
+              className="inline-block mr-4 text-[var(--color-accent)]"
+              initial={{ opacity: 0, y: 40, rotateX: 45 }}
+              animate={phase >= 3 ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 40, rotateX: 45 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20, delay: phase >= 3 ? 0.5 + (i * 0.1) : 0 }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.h1>
+      </div>
     </motion.div>
   );
 }
