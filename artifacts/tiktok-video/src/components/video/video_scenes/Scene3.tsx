@@ -11,7 +11,6 @@ export function Scene3() {
       setTimeout(() => setPhase(3), 1300), // s2
       setTimeout(() => setPhase(4), 1600), // s3
       setTimeout(() => setPhase(5), 1900), // s4
-      setTimeout(() => setPhase(6), 2200), // s5
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
@@ -20,8 +19,7 @@ export function Scene3() {
     { text: "Gestión de trámites", p: 2 },
     { text: "Orientación experta", p: 3 },
     { text: "Impresión de documentos", p: 4 },
-    { text: "Fotografías oficiales", p: 5 },
-    { text: "Envío de paquetes", p: 6 }
+    { text: "Fotografías oficiales", p: 5 }
   ];
 
   return (
