@@ -6,10 +6,10 @@ export function Scene3() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 600), // title
-      setTimeout(() => setPhase(2), 1000), // s1
-      setTimeout(() => setPhase(3), 1300), // s2
-      setTimeout(() => setPhase(4), 1600), // s3
+      setTimeout(() => setPhase(1), 600),
+      setTimeout(() => setPhase(2), 1000),
+      setTimeout(() => setPhase(3), 1300),
+      setTimeout(() => setPhase(4), 1600),
       setTimeout(() => setPhase(5), 1900),
     ];
     return () => timers.forEach(t => clearTimeout(t));
@@ -18,7 +18,8 @@ export function Scene3() {
   const services = [
     { text: "Gestión de trámites", p: 2 },
     { text: "Orientación experta", p: 3 },
-    { text: "Impresión de documentos", p: 4 }
+    { text: "Impresión de documentos", p: 4 },
+    { text: "🌐 Webs para restaurantes y negocios", p: 5 }
   ];
 
   return (
