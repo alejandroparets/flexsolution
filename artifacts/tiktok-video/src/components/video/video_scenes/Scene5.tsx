@@ -58,7 +58,7 @@ export function Scene5() {
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         >
           <span className="text-[var(--color-primary)] font-mono text-[1.5vw] tracking-wider">
-            www.flesolution.es
+            www.flexsolution.es
           </span>
         </motion.div>
 
