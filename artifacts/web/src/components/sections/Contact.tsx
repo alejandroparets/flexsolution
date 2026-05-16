@@ -114,7 +114,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">Email</h4>
-                  <p className="text-sm text-muted-foreground">contacto@tugestoria.es</p>
+                  <p className="text-sm text-muted-foreground">alejandroparets@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -123,8 +123,8 @@ export function Contact() {
               <CardContent className="p-6 flex flex-col items-center text-center gap-4">
                 <h4 className="font-semibold text-foreground">Escanea y guarda nuestro contacto</h4>
                 <img 
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tugestoria.es" 
-                  alt="QR Code a tugestoria.es" 
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://community-connect-hub-alejandroparets.replit.app/" 
+                  alt="QR Code" 
                   className="w-32 h-32 rounded-xl border p-2 bg-white"
                 />
               </CardContent>
