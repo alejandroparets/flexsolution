@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export function Scene2() {
@@ -6,65 +6,68 @@ export function Scene2() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 200),   // First pain point
-      setTimeout(() => setPhase(2), 800),   // Second
-      setTimeout(() => setPhase(3), 1400),  // Third
-      setTimeout(() => setPhase(4), 2200),  // Subline
-      setTimeout(() => setPhase(5), 3800),  // Exit prep
+      setTimeout(() => setPhase(1), 500),
+      setTimeout(() => setPhase(2), 1200),
+      setTimeout(() => setPhase(3), 1900),
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
-  const problems = ["Trámites.", "Burocracia.", "Idioma."];
+  const challenges = [
+    { text: "Trámites", p: 1 },
+    { text: "Burocracia", p: 2 },
+    { text: "Idioma", p: 3 },
+  ];
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-start px-[10vw] bg-black overflow-hidden"
-      initial={{ clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' }}
-      animate={{ clipPath: 'polygon(0% 0, 100% 0, 100% 100%, 0% 100%)' }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      className="absolute inset-0 flex items-center justify-center overflow-hidden bg-black"
+      initial={{ rotateY: -90, scale: 0.8, opacity: 0 }}
+      animate={{ rotateY: 0, scale: 1, opacity: 1 }}
+      exit={{ rotateY: 90, scale: 0.8, opacity: 0 }}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      style={{ perspective: 1200 }}
     >
-      {/* Background Image Layer */}
-      <motion.div 
-        className="absolute inset-0 w-full h-full"
-        initial={{ x: '10%' }}
-        animate={{ x: '0%' }}
-        transition={{ duration: 5, ease: 'easeOut' }}
-      >
-        <img 
-          src={`${import.meta.env.BASE_URL}images/problem.jpg`} 
-          alt="Confused immigrant with paperwork" 
-          className="w-full h-full object-cover opacity-40 grayscale"
-        />
-        {/* Subtle gradient to ensure text readability on the left */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent w-2/3" />
-      </motion.div>
+      {/* Background Image */}
+      <motion.img 
+        src={`${import.meta.env.BASE_URL}images/problem.jpg`}
+        className="absolute inset-0 w-full h-full object-cover"
+        initial={{ filter: 'grayscale(100%) blur(5px)', scale: 1.1 }}
+        animate={{ filter: 'grayscale(40%) blur(2px)', scale: 1 }}
+        transition={{ duration: 4.5 }}
+      />
+      
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-black/70" />
 
-      <div className="relative z-10 flex flex-col justify-center h-full max-w-2xl">
-        <div className="space-y-4">
-          {problems.map((prob, idx) => (
-            <motion.h2 
+      {/* Content */}
+      <div className="relative z-10 w-full px-12 flex flex-col items-center justify-center">
+        
+        <motion.h2 
+          className="text-[4vw] font-display text-white mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Conocemos los retos...
+        </motion.h2>
+
+        <div className="flex flex-row gap-8">
+          {challenges.map((challenge, idx) => (
+            <motion.div 
               key={idx}
-              className="text-[5vw] font-black tracking-tight text-white leading-none uppercase"
-              style={{ fontFamily: 'var(--font-display)' }}
-              initial={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
-              animate={phase >= idx + 1 ? { opacity: 1, x: 0, filter: 'blur(0px)' } : { opacity: 0, x: -50, filter: 'blur(10px)' }}
-              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              className="bg-[var(--color-bg-muted)] border border-[var(--color-primary)]/40 px-8 py-6 rounded-lg"
+              initial={{ opacity: 0, y: 40, scale: 0.9, rotateX: 20 }}
+              animate={phase >= challenge.p ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : { opacity: 0, y: 40, scale: 0.9, rotateX: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              {prob}
-            </motion.h2>
+              <span className="text-[2.5vw] font-sans font-bold text-[var(--color-primary)] uppercase tracking-wider">
+                {challenge.text}
+              </span>
+            </motion.div>
           ))}
         </div>
-        
-        <motion.p 
-          className="mt-8 text-[2vw] text-[var(--color-accent)] font-semibold uppercase tracking-widest border-l-4 border-[var(--color-accent)] pl-6"
-          initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
-          animate={phase >= 4 ? { opacity: 1, height: 'auto' } : { opacity: 0, height: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-        >
-          No tienes que hacerlo solo
-        </motion.p>
+
       </div>
     </motion.div>
   );

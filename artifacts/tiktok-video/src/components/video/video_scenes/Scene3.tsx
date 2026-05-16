@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export function Scene3() {
@@ -6,75 +6,72 @@ export function Scene3() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 200),   // BG zoom
-      setTimeout(() => setPhase(2), 600),   // Service 1
-      setTimeout(() => setPhase(3), 1000),  // Service 2
-      setTimeout(() => setPhase(4), 1400),  // Service 3
-      setTimeout(() => setPhase(5), 1800),  // Service 4
-      setTimeout(() => setPhase(6), 2200),  // Service 5
-      setTimeout(() => setPhase(7), 4800),  // Exit prep
+      setTimeout(() => setPhase(1), 600), // title
+      setTimeout(() => setPhase(2), 1000), // s1
+      setTimeout(() => setPhase(3), 1300), // s2
+      setTimeout(() => setPhase(4), 1600), // s3
+      setTimeout(() => setPhase(5), 1900), // s4
+      setTimeout(() => setPhase(6), 2200), // s5
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   const services = [
-    "Gestión de trámites",
-    "Impresión",
-    "Fotografías",
-    "Envío de paquetes",
-    "Orientación para inmigrantes"
+    { text: "Gestión de trámites", p: 2 },
+    { text: "Orientación experta", p: 3 },
+    { text: "Impresión de documentos", p: 4 },
+    { text: "Fotografías oficiales", p: 5 },
+    { text: "Envío de paquetes", p: 6 }
   ];
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-end px-[10vw] bg-[var(--color-bg-dark)] overflow-hidden"
-      initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-      animate={{ clipPath: 'circle(150% at 50% 50%)' }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+      className="absolute inset-0 flex items-center justify-end overflow-hidden"
+      initial={{ x: '100%' }}
+      animate={{ x: '0%' }}
+      exit={{ x: '-100%' }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Background Image */}
-      <motion.div 
-        className="absolute inset-0 w-full h-full"
-        initial={{ scale: 1.1, filter: 'blur(5px)' }}
-        animate={{ scale: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-      >
-        <img 
-          src={`${import.meta.env.BASE_URL}images/solution.jpg`} 
-          alt="Professional helping client" 
-          className="w-full h-full object-cover opacity-50"
-        />
-        {/* Gradient shifting to the right for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/60 to-transparent w-full" />
-      </motion.div>
+      <motion.img 
+        src={`${import.meta.env.BASE_URL}images/solution.jpg`}
+        className="absolute inset-0 w-full h-full object-cover"
+        initial={{ scale: 1.3, x: '-10%' }}
+        animate={{ scale: 1, x: '0%' }}
+        transition={{ duration: 5, ease: 'easeOut' }}
+      />
+      
+      {/* Solid gradient to right */}
+      <div className="absolute inset-0 bg-gradient-to-l from-black via-black/80 to-transparent" />
 
-      <div className="relative z-10 flex flex-col items-end text-right h-full justify-center max-w-3xl">
+      {/* Content right aligned */}
+      <div className="relative z-10 w-1/2 pr-20 flex flex-col items-end text-right">
+        
         <motion.h2 
-          className="text-[3vw] text-[var(--color-accent)] font-bold mb-8 uppercase tracking-wider"
-          style={{ fontFamily: 'var(--font-display)' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          className="text-[4vw] font-display text-[var(--color-primary)] font-bold mb-8 text-shadow-lg leading-tight"
+          initial={{ opacity: 0, x: 50 }}
+          animate={phase >= 1 ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+          transition={{ duration: 0.8 }}
         >
-          Nuestros Servicios
+          Nosotros te <br/><span className="text-white">ayudamos</span>
         </motion.h2>
 
-        <div className="space-y-6 w-full flex flex-col items-end">
+        <div className="flex flex-col items-end gap-4 w-full">
           {services.map((service, idx) => (
             <motion.div 
               key={idx}
-              className="bg-white/10 backdrop-blur-md border border-white/10 py-4 px-8 rounded-l-2xl shadow-xl w-[120%]"
-              initial={{ opacity: 0, x: 100 }}
-              animate={phase >= idx + 2 ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              className="flex items-center gap-4 bg-white/5 backdrop-blur-sm px-6 py-3 rounded border-r-4 border-[var(--color-primary)]"
+              initial={{ opacity: 0, x: 50 }}
+              animate={phase >= service.p ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             >
-              <h3 className="text-[2.2vw] font-semibold text-white tracking-wide">
-                {service}
-              </h3>
+              <span className="text-[1.8vw] font-sans text-white">
+                {service.text}
+              </span>
             </motion.div>
           ))}
         </div>
+
       </div>
     </motion.div>
   );

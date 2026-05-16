@@ -8,11 +8,11 @@ import { Scene4 } from './video_scenes/Scene4';
 import { Scene5 } from './video_scenes/Scene5';
 
 export const SCENE_DURATIONS: Record<string, number> = {
-  hook: 4000,
+  hook: 3000,
   problem: 4500,
-  services: 5500,
-  contact: 4500,
-  close: 4500,
+  services: 5000,
+  contact: 4000,
+  close: 4000,
 };
 
 const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
@@ -43,42 +43,32 @@ export default function VideoTemplate({
   const SceneComponent = SCENE_COMPONENTS[baseSceneKey];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[var(--color-bg-dark)] font-body">
-      {/* Persistent Background Layer for depth */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {/* Subtle noise/texture overlay */}
-        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}></div>
-        
-        {/* Persistent drifting ambient glow */}
-        <motion.div className="absolute w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] rounded-full opacity-10 blur-[120px] pointer-events-none"
-          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)' }}
-          animate={{ 
-            x: ['-10%', '60%', '20%'], 
-            y: ['0%', '50%', '30%'], 
-            scale: [1, 1.4, 0.9] 
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }} 
-        />
-      </div>
+    <div className="relative w-full h-screen overflow-hidden bg-[var(--color-bg-dark)]">
 
-      {/* Persistent Line Accent */}
+      {/* Persistent Midground / Accent Layer */}
       <motion.div
-        className="absolute w-[3px] bg-[var(--color-accent)] z-20"
+        className="absolute w-[80vw] h-[80vw] rounded-full border border-[var(--color-primary)]/20 mix-blend-screen pointer-events-none"
         animate={{
-          left: ['5%', '15%', '85%', '5%', '50%'][sceneIndex],
-          height: ['40%', '60%', '80%', '30%', '0%'][sceneIndex],
-          top: ['30%', '20%', '10%', '35%', '50%'][sceneIndex],
-          opacity: sceneIndex === 4 ? 0 : 0.8,
+          x: ['-20%', '10%', '-50%', '30%', '-10%'][sceneIndex],
+          y: ['-20%', '-50%', '10%', '-30%', '-20%'][sceneIndex],
+          scale: [1, 1.2, 0.8, 1.1, 1][sceneIndex],
         }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      {/* Foreground Scenes */}
-      <div className="relative z-10 w-full h-full">
-        <AnimatePresence mode="popLayout">
-          {SceneComponent && <SceneComponent key={currentSceneKey} />}
-        </AnimatePresence>
-      </div>
+      <motion.div
+        className="absolute w-2 h-full bg-[var(--color-primary)] opacity-80"
+        animate={{
+          left: ['0%', '100%', '0%', '100%', '50%'][sceneIndex],
+          opacity: sceneIndex === 4 ? 0 : 0.8,
+          scaleY: [1, 0.5, 1, 0.8, 0][sceneIndex],
+        }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      />
+
+      <AnimatePresence mode="popLayout">
+        {SceneComponent && <SceneComponent key={currentSceneKey} />}
+      </AnimatePresence>
     </div>
   );
 }
