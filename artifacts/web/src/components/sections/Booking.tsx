@@ -165,7 +165,7 @@ export function Booking() {
                       <FormItem>
                         <FormLabel>Teléfono</FormLabel>
                         <FormControl>
-                          <Input placeholder="+34 628 852 296" type="tel" {...field} className="h-12 rounded-xl" />
+                          <Input placeholder="+34 600 000 000" type="tel" {...field} className="h-12 rounded-xl" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
