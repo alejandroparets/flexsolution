@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp, Repeat } from 'lucide-react';
+import { ChevronDown, ChevronUp, Maximize, Minimize, Repeat } from 'lucide-react';
 import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useSceneControls } from './useSceneControls';
 import type { Lang } from './video_scenes/content';
@@ -167,6 +167,25 @@ export default function VideoWithControls() {
   const [lang, setLang] = useState<Lang>('es');
   const toggleLang = useCallback(() => setLang(l => (l === 'es' ? 'en' : 'es')), []);
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handler);
+    return () => document.removeEventListener('fullscreenchange', handler);
+  }, []);
+
   const sensorRef = useRef<HTMLDivElement | null>(null);
   const [collapsed, setCollapsed] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -210,7 +229,7 @@ export default function VideoWithControls() {
   };
 
   return (
-    <div className="relative w-full h-screen">
+    <div ref={containerRef} className="relative w-full h-screen">
       <VideoTemplate
         key={mountKey}
         durations={durations}
@@ -222,7 +241,17 @@ export default function VideoWithControls() {
       {/* Top recording bar */}
       <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 bg-black/40 backdrop-blur-sm">
         <span className="text-white/60 text-xs font-mono uppercase tracking-wider">FlexSolution · TikTok</span>
-        <RecordButton onStartRecording={handleStartRecording} />
+        <div className="flex items-center gap-3">
+          <RecordButton onStartRecording={handleStartRecording} />
+          <button
+            onClick={toggleFullscreen}
+            className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white text-sm font-medium px-3 py-2 rounded-lg transition-colors"
+            title={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
+          >
+            {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+            {isFullscreen ? 'Salir' : 'Pantalla completa'}
+          </button>
+        </div>
       </div>
 
       {/* Bottom scene controls */}
