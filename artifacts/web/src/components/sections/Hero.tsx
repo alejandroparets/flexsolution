@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, FileText, Globe, Printer } from "lucide-react";
-import posterImg from "@assets/Tarjeta_presentación_-_Posterior_1778917990600.png";
+import posterImg from "@assets/Captura_de_pantalla_2026-05-16_100758_1778918896473.png";
 
 export function Hero() {
   const scrollTo = (id: string) => {
