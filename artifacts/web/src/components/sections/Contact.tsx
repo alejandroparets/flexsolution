@@ -77,7 +77,7 @@ export function Contact() {
 
             <div className="space-y-6">
               <a 
-                href="https://wa.me/34600000000" 
+                href="https://wa.me/34628852296" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-card border hover:border-[#25D366]/50 hover:shadow-md transition-all group"
