@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp, Repeat } from 'lucide-react';
 import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useSceneControls } from './useSceneControls';
+import type { Lang } from './video_scenes/content';
 
 const PROGRESS_TICK_MS = 60;
 
@@ -13,9 +14,11 @@ interface ControlBarProps {
   activeIndex: number;
   activeDuration: number;
   tick: number;
+  lang: Lang;
   onToggleLock: () => void;
   onJumpTo: (index: number) => void;
   onToggleCollapsed: () => void;
+  onToggleLang: () => void;
 }
 
 function ProgressSegments({
@@ -76,9 +79,11 @@ function ControlBar({
   activeIndex,
   activeDuration,
   tick,
+  lang,
   onToggleLock,
   onJumpTo,
   onToggleCollapsed,
+  onToggleLang,
 }: ControlBarProps) {
   return (
     <div
@@ -89,6 +94,18 @@ function ControlBar({
       }`}
       aria-hidden={!visible}
     >
+      {/* Lang toggle */}
+      <button
+        onClick={onToggleLang}
+        className="w-14 h-14 flex items-center justify-center text-white font-bold text-sm rounded-lg bg-white/10 hover:bg-white/20 transition-colors shrink-0 tracking-wide"
+        title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+        aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+      >
+        {lang === 'es' ? 'EN' : 'ES'}
+      </button>
+
+      <div className="w-px self-stretch bg-white/15" aria-hidden="true" />
+
       <button
         onClick={onToggleLock}
         className={`w-14 h-14 flex items-center justify-center transition-colors rounded-lg shrink-0 ${
@@ -146,6 +163,9 @@ export default function VideoWithControls() {
     toggleLock,
   } = useSceneControls(SCENE_DURATIONS);
 
+  const [lang, setLang] = useState<Lang>('es');
+  const toggleLang = useCallback(() => setLang(l => (l === 'es' ? 'en' : 'es')), []);
+
   const sensorRef = useRef<HTMLDivElement | null>(null);
   const [collapsed, setCollapsed] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -181,7 +201,7 @@ export default function VideoWithControls() {
 
   const barVisible = !collapsed || hovering || tapPinned;
 
-  if (!isIframed) return <VideoTemplate />;
+  if (!isIframed) return <VideoTemplate lang={lang} />;
 
   return (
     <div className="relative w-full h-screen">
@@ -189,6 +209,7 @@ export default function VideoWithControls() {
         key={mountKey}
         durations={durations}
         loop
+        lang={lang}
         onSceneChange={onSceneChange}
       />
       <div
@@ -208,9 +229,11 @@ export default function VideoWithControls() {
           activeIndex={activeIndex}
           activeDuration={activeDuration}
           tick={tick}
+          lang={lang}
           onToggleLock={toggleLock}
           onJumpTo={jumpTo}
           onToggleCollapsed={handleToggleCollapsed}
+          onToggleLang={toggleLang}
         />
       </div>
     </div>

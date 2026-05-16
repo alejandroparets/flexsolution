@@ -10,6 +10,7 @@ import { Payment } from "@/components/sections/Payment";
 import { Contact } from "@/components/sections/Contact";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LangProvider } from "@/context/LangContext";
 
 const queryClient = new QueryClient();
 
@@ -18,21 +19,11 @@ function Home() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-1">
-        <div id="hero">
-          <Hero />
-        </div>
-        <div id="servicios">
-          <Services />
-        </div>
-        <div id="cita">
-          <Booking />
-        </div>
-        <div id="pago">
-          <Payment />
-        </div>
-        <div id="contacto">
-          <Contact />
-        </div>
+        <div id="hero"><Hero /></div>
+        <div id="servicios"><Services /></div>
+        <div id="cita"><Booking /></div>
+        <div id="pago"><Payment /></div>
+        <div id="contacto"><Contact /></div>
       </main>
       <Footer />
     </div>
@@ -52,10 +43,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
+        <LangProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </LangProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
