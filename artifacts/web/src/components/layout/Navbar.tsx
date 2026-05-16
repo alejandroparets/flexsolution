@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logoImg from "@assets/1778935656_1778935940350.png";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ export function Navbar() {
           onClick={() => scrollTo("hero")}
           data-testid="nav-logo"
         >
-          Gestión+
+          <img src={logoImg} alt="FlexSolution" className="h-10 w-auto" />
         </div>
         
         {/* Desktop Nav */}
