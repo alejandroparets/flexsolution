@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp, Repeat } from 'lucide-react';
 import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useSceneControls } from './useSceneControls';
 import type { Lang } from './video_scenes/content';
+import { RecordButton } from './RecordButton';
 
 const PROGRESS_TICK_MS = 60;
 
@@ -203,6 +204,11 @@ export default function VideoWithControls() {
 
   if (!isIframed) return <VideoTemplate lang={lang} />;
 
+  const handleStartRecording = () => {
+    // Jump to first scene so recording starts from the beginning
+    jumpTo(0);
+  };
+
   return (
     <div className="relative w-full h-screen">
       <VideoTemplate
@@ -212,6 +218,14 @@ export default function VideoWithControls() {
         lang={lang}
         onSceneChange={onSceneChange}
       />
+
+      {/* Top recording bar */}
+      <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 bg-black/40 backdrop-blur-sm">
+        <span className="text-white/60 text-xs font-mono uppercase tracking-wider">FlexSolution · TikTok</span>
+        <RecordButton onStartRecording={handleStartRecording} />
+      </div>
+
+      {/* Bottom scene controls */}
       <div
         ref={sensorRef}
         className="absolute bottom-0 left-0 right-0 z-50 flex flex-col justify-end"
