@@ -3,13 +3,17 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: API specification for Gestión Web Impresión services
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: appointments
+    description: Appointment booking operations
+  - name: contact
+    description: Contact form operations
 paths:
   /healthz:
     get:
@@ -24,6 +28,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /appointments:
+    post:
+      operationId: createAppointment
+      tags: [appointments]
+      summary: Book an appointment
+      description: Submit a new appointment request for any service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentInput"
+      responses:
+        "201":
+          description: Appointment created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+        "400":
+          description: Invalid input
+
+  /contact:
+    post:
+      operationId: sendContact
+      tags: [contact]
+      summary: Send a contact message
+      description: Submit a contact message via the contact form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+      responses:
+        "201":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactMessage"
+        "400":
+          description: Invalid input
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +83,76 @@ components:
       required:
         - status
 
+    Appointment:
+      type: object
+      required: [id, name, email, phone, service, preferredDate, status, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        service:
+          type: string
+        preferredDate:
+          type: string
+        notes:
+          type: ["string", "null"]
+        status:
+          type: string
+        createdAt:
+          type: string
+
+    AppointmentInput:
+      type: object
+      required: [name, email, phone, service, preferredDate]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 1
+        service:
+          type: string
+          minLength: 1
+        preferredDate:
+          type: string
+          minLength: 1
+        notes:
+          type: string
+
+    ContactMessage:
+      type: object
+      required: [id, name, email, message, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+
+    ContactInput:
+      type: object
+      required: [name, email, message]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        message:
+          type: string
+          minLength: 1
