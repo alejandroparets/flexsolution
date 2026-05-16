@@ -88,7 +88,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">WhatsApp</h4>
-                  <p className="text-sm text-muted-foreground">Respuesta rápida (600 000 000)</p>
+                  <p className="text-sm text-muted-foreground">Respuesta rápida (628 852 296)</p>
                 </div>
               </a>
 

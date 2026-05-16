@@ -23,7 +23,7 @@ export function Payment() {
                 <div>
                   <p className="text-sm text-muted-foreground font-medium mb-1">Número de teléfono Bizum</p>
                   <div className="text-3xl font-mono font-bold tracking-wider text-foreground bg-muted p-4 rounded-xl text-center border">
-                    600 000 000
+                    628 852 296
                   </div>
                 </div>
                 <div>
@@ -53,7 +53,7 @@ export function Payment() {
               <div className="space-y-6">
                 {[
                   { step: "1", text: "Abre la app de tu banco en tu móvil y entra en la sección de Bizum." },
-                  { step: "2", text: "Selecciona 'Enviar dinero' e introduce nuestro número: 600 000 000." },
+                  { step: "2", text: "Selecciona 'Enviar dinero' e introduce nuestro número: 628 852 296." },
                   { step: "3", text: "Escribe el importe acordado y en concepto pon tu Nombre y Servicio." },
                   { step: "4", text: "Confirma el envío y envíanos una captura por WhatsApp para validar tu cita." }
                 ].map((item, i) => (
