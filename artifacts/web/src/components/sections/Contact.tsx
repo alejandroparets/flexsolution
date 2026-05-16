@@ -93,7 +93,7 @@ export function Contact() {
               </a>
 
               <a 
-                href="https://instagram.com/placeholder" 
+                href="https://www.instagram.com/dac_2025parets/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-2xl bg-card border hover:border-[#E1306C]/50 hover:shadow-md transition-all group"
@@ -104,7 +104,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">Instagram</h4>
-                  <p className="text-sm text-muted-foreground">@gestionwebimpresion</p>
+                  <p className="text-sm text-muted-foreground">@dac_2025parets</p>
                 </div>
               </a>
 
