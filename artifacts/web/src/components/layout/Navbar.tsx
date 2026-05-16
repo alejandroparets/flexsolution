@@ -30,7 +30,7 @@ export function Navbar() {
           onClick={() => scrollTo("hero")}
           data-testid="nav-logo"
         >
-          <img src={logoImg} alt="FlexSolution" className="h-10 w-auto" />
+          <img src={logoImg} alt="FlexSolution" className="h-14 w-auto" />
         </div>
         
         {/* Desktop Nav */}
