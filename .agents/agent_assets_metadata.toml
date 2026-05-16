@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "N88ZvumA2moQyxeW8I7Kj"
+uri = "file://artifacts/tiktok-video/public/images/papers.png"
+type = "image"
+title = "floating papers and documents"
+
+[[generated]]
+id = "7xZ5tAl9xyVSfjLvpnawk"
+uri = "file://artifacts/tiktok-video/public/images/services.png"
+type = "image"
+title = "3d service icons"
