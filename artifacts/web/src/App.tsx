@@ -11,6 +11,7 @@ import { Contact } from "@/components/sections/Contact";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LangProvider } from "@/context/LangContext";
+import { Testimonials } from "@/components/sections/Testimonials";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ function Home() {
         <div id="servicios"><Services /></div>
         <div id="cita"><Booking /></div>
         <div id="pago"><Payment /></div>
+        <div id="resenas"><Testimonials /></div>
         <div id="contacto"><Contact /></div>
       </main>
       <Footer />

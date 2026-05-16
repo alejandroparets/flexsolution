@@ -21,6 +21,7 @@ export function Navbar() {
     { label: t.services, id: "servicios" },
     { label: t.booking, id: "cita" },
     { label: t.payment, id: "pago" },
+    { label: t.reviews, id: "resenas" },
     { label: t.contact, id: "contacto" },
   ];
 

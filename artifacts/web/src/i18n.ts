@@ -8,6 +8,7 @@ export const translations = {
       booking: 'Cita Previa',
       payment: 'Pago',
       contact: 'Contacto',
+      reviews: 'Reseñas',
       cta: 'Pedir Cita',
     },
     en: {
@@ -15,6 +16,7 @@ export const translations = {
       services: 'Services',
       booking: 'Book Appointment',
       payment: 'Payment',
+      reviews: 'Reviews',
       contact: 'Contact',
       cta: 'Book Now',
     },
@@ -239,6 +241,66 @@ export const translations = {
       copyright: 'All rights reserved.',
       madeWith: 'Made with',
       forYou: 'for you',
+    },
+  },
+  testimonials: {
+    es: {
+      heading: 'Lo que dicen nuestros clientes',
+      subheading: 'Personas reales que confiaron en nosotros para gestionar sus trámites y proyectos.',
+      badge: 'Reseñas verificadas',
+      cta: 'Déjanos tu reseña en Google',
+      reviews: [
+        {
+          name: 'María González',
+          avatar: 'MG',
+          rating: 5,
+          date: 'hace 2 semanas',
+          text: 'Me ayudaron con la renovación de mi NIE sin ningún problema. Todo muy rápido y profesional. Los recomiendo totalmente a cualquier persona que necesite ayuda con trámites en España.',
+        },
+        {
+          name: 'Carlos Ramírez',
+          avatar: 'CR',
+          rating: 5,
+          date: 'hace 1 mes',
+          text: 'Excelente servicio. Me hicieron la web para mi restaurante y quedé muy contento. Muy atentos y el resultado fue mejor de lo que esperaba. 100% recomendados.',
+        },
+        {
+          name: 'Linh Nguyen',
+          avatar: 'LN',
+          rating: 5,
+          date: 'hace 3 semanas',
+          text: 'Muy buen trato. Me ayudaron con mis papeles y siempre estuvieron disponibles para resolver mis dudas. El precio muy justo para todo lo que ofrecen.',
+        },
+      ],
+    },
+    en: {
+      heading: 'What our clients say',
+      subheading: 'Real people who trusted us to handle their paperwork and projects.',
+      badge: 'Verified reviews',
+      cta: 'Leave us a review on Google',
+      reviews: [
+        {
+          name: 'María González',
+          avatar: 'MG',
+          rating: 5,
+          date: '2 weeks ago',
+          text: 'They helped me with my NIE renewal without any issues. Very fast and professional. I totally recommend them to anyone who needs help with admin in Spain.',
+        },
+        {
+          name: 'Carlos Ramírez',
+          avatar: 'CR',
+          rating: 5,
+          date: '1 month ago',
+          text: 'Excellent service. They built the website for my restaurant and I was very happy with it. Very attentive and the result was better than I expected. 100% recommended.',
+        },
+        {
+          name: 'Linh Nguyen',
+          avatar: 'LN',
+          rating: 5,
+          date: '3 weeks ago',
+          text: 'Very friendly service. They helped me with my documents and were always available to answer my questions. Very fair price for everything they offer.',
+        },
+      ],
     },
   },
 } as const;
