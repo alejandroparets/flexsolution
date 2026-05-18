@@ -12,10 +12,13 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LangProvider } from "@/context/LangContext";
 import { Testimonials } from "@/components/sections/Testimonials";
+import AdminPage from "@/pages/Admin";
+import { useTrackVisit } from "@/hooks/useTrackVisit";
 
 const queryClient = new QueryClient();
 
 function Home() {
+  useTrackVisit();
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -36,6 +39,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/admin" component={AdminPage} />
       <Route component={NotFound} />
     </Switch>
   );
